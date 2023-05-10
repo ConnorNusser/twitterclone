@@ -24,8 +24,8 @@ import Link from 'next/link';
               {isDesktop ? (
                 <Flex justify="space-between" flex="1">
                   <ButtonGroup variant="link" spacing="8">
-                    {['Home', 'Explore', '👾 Trending 👾'].map((item) => (
-                    <Link key= {item} href={item} passHref>
+                    {['Home', 'Explore', 'Trending'].map((item) => (
+                    <Link key= {item} href={item.toLowerCase()} passHref>
                       <Button key={item}>{item}</Button>
                     </Link>
                     ))}
