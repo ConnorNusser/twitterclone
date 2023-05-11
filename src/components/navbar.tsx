@@ -1,3 +1,4 @@
+import { loginStateGet } from '@/state';
 import {
     Box,
     Button,
@@ -7,14 +8,17 @@ import {
     HStack,
     IconButton,
     useBreakpointValue,
+    Text,
   } from '@chakra-ui/react'
 import Link from 'next/link';
+import { useRecoilValue } from 'recoil';
   
   const navigatePage = (linkStr: string) => {
     console.log(linkStr);
     
   }
   export const Navbar = () => {
+    const getLoggedInState = useRecoilValue(loginStateGet);
     const isDesktop = useBreakpointValue({ base: false, lg: true })
     return (
       <Box as="section" pb={{ base: '12', md: '24' }}>
@@ -31,9 +35,12 @@ import Link from 'next/link';
                     ))}
                   </ButtonGroup>
                   <HStack spacing="3">
-                  <Link href="/signin" passHref><Button variant="ghost" colorScheme='messenger' onClick={() => navigatePage('signin')}>Sign in</Button></Link>
+                    {getLoggedInState == "" ?  <><Link href="/signin" passHref><Button variant="ghost" colorScheme='messenger' onClick={() => navigatePage('signin')}>Sign in</Button></Link>
                     
                     <Link href='/signup' passHref><Button variant="primary" colorScheme='messenger' onClick={() => navigatePage('signup')}>Sign up</Button></Link>
+                    </> : <Text>Logged in as {getLoggedInState}</Text>
+                    }
+
                   </HStack>
                 </Flex>
               ) : (
